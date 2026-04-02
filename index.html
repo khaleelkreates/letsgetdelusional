@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Are We Safe? 🎂 FLAMES · birthday edition</title>
-  <!-- Professional, Canva-inspired design system: playful yet polished, emoji-friendly, vibrant but crisp -->
   <style>
     * {
       margin: 0;
@@ -20,7 +19,6 @@
       color: #1f1a15;
     }
 
-    /* main card — Canva template smoothness: large radius, soft shadow, clean */
     .canva-card {
       max-width: 920px;
       margin: 0 auto;
@@ -28,15 +26,12 @@
       border-radius: 48px;
       box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.02);
       overflow: hidden;
-      transition: transform 0.2s ease;
     }
 
-    /* inner spacing */
     .card-inner {
       padding: 2.4rem 2.2rem 2.6rem;
     }
 
-    /* header with birthday flair */
     .birthday-header {
       display: flex;
       align-items: baseline;
@@ -72,7 +67,6 @@
       gap: 6px;
     }
 
-    /* story panel — fresh, airy, with soft background */
     .story-panel {
       background: #fefaf5;
       border-radius: 32px;
@@ -98,14 +92,12 @@
       font-weight: 600;
     }
 
-    /* interactive zone — canva component style */
     .destiny-card {
       background: #ffffff;
       border-radius: 36px;
       padding: 2rem 1.8rem;
       text-align: center;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03), inset 0 0 0 1px rgba(255, 215, 175, 0.5);
-      transition: all 0.2s;
     }
 
     .destiny-card h2 {
@@ -127,7 +119,6 @@
       margin: 1.8rem 0 1.2rem;
     }
 
-    /* sleek modern inputs */
     input {
       background: #fefaf5;
       border: 1.5px solid #f3e1cf;
@@ -148,7 +139,6 @@
       background: white;
     }
 
-    /* primary button — playful but premium */
     .check-btn {
       background: linear-gradient(95deg, #ff825c, #ff5e2e);
       border: none;
@@ -176,7 +166,6 @@
       transform: translateY(1px);
     }
 
-    /* result block — glassy modern with fresh animation */
     .result-modern {
       margin-top: 2rem;
       background: #fff9f2;
@@ -194,7 +183,6 @@
       transform: scale(1) translateY(0);
     }
 
-    /* fresh loading/refreshing state */
     .result-modern.refreshing {
       opacity: 0;
       transform: scale(0.92) translateY(8px);
@@ -260,7 +248,6 @@
       }
     }
 
-    /* button loading indicator */
     .check-btn.loading {
       opacity: 0.7;
       cursor: wait;
@@ -271,7 +258,6 @@
 <body>
 <div class="canva-card">
   <div class="card-inner">
-    <!-- header with birthday vibe restored -->
     <div class="birthday-header">
       <h1>
         <span>🎂</span> Are We Safe? <span>😂</span>
@@ -281,7 +267,6 @@
       </div>
     </div>
 
-    <!-- story section: emojis, warmth, no em dashes, birthday energy -->
     <div class="story-panel">
       <p>Happy Birthday to me! 🥳 Another year, less seriousness, more laughter. The world is loud, but peace is sometimes just sitting beside someone without pressing a phone. Like that Tuesday last week. She was complaining about work, one aunty stressing her life, and I was there forming a serious adviser. But truthfully? I was just watching her face. The way she says "see ehn" before making a strong point.</p>
       <p>When she asked why I was smiling, I told her, "Nothing. I just like you." She rolled her eyes, but that small shy smile came out. That day I realized love is not always butterflies. Sometimes it is knowing that even if NEPA takes light and the whole world is upside down, as long as she is there, you are alright. 💫</p>
@@ -289,7 +274,6 @@
       <p>So I built this for you too. A little birthday oracle with emojis and zero stress. 🎂✨</p>
     </div>
 
-    <!-- interactive FLAMES zone -->
     <div class="destiny-card">
       <h2>
         <span>✨</span> Check your own destiny <span>😂</span>
@@ -313,29 +297,40 @@
 </div>
 
 <script>
-  // FLAMES engine - GRID METHOD (direct modulo lookup)
-  // This is the fair, transparent method that users expect
-  // Mapping: 1=F, 2=L, 3=A, 4=M, 5=E, 0=S (for multiples of 6)
-  // The logic runs behind the scenes - no visual grid displayed
-  
+  // YOUR GOOGLE SCRIPT URL - Replace with your actual URL
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyN9uwKWAvEvZtHuPtwGQT8HTa9KodzSzpwsHhZar5jDLnoqnz7hHF4dCECnzm9TQ/exec';
+
+  // Function to send data to Google Sheets
+  function saveToGoogleSheet(name1, name2, result) {
+    // Create URL with parameters (works with doGet)
+    const url = `${GOOGLE_SCRIPT_URL}?name1=${encodeURIComponent(name1)}&name2=${encodeURIComponent(name2)}&result=${encodeURIComponent(result)}`;
+    
+    // Send data using fetch (no-cors mode to avoid CORS issues)
+    fetch(url, {
+      method: 'GET',
+      mode: 'no-cors'
+    }).catch(error => {
+      console.log('Google Sheet save error (non-critical):', error);
+    });
+    
+    // Also log to console for debugging
+    console.log(`📊 Saved to Google Sheet: ${name1} + ${name2} = ${result}`);
+  }
+
   function calculateFlames() {
     const name1Raw = document.getElementById("name1").value;
     const name2Raw = document.getElementById("name2").value;
     const resultDiv = document.getElementById("resultBox");
     const checkBtn = document.querySelector(".check-btn");
 
-    // Add loading state to button for better UX
     checkBtn.classList.add("loading");
     
-    // STEP 1: Clear previous result with a refresh animation
     resultDiv.classList.remove("show");
     resultDiv.classList.add("refreshing");
     
-    // Force a reflow to ensure the removal animation is visible
     void resultDiv.offsetWidth;
     
     setTimeout(() => {
-      // Validate inputs
       if (!name1Raw || !name2Raw) {
         resultDiv.innerHTML = `
           <div class="result-headline">🙅🏽‍♀️ Oops! 🙅🏽‍♂️</div>
@@ -363,7 +358,6 @@
         return;
       }
 
-      // Step 1: Cancel common letters (standard FLAMES letter cancellation)
       let arr1 = name1.split('');
       let arr2 = name2.split('');
 
@@ -380,7 +374,6 @@
       const leftover = (arr1.join('') + arr2.join('')).replace(/\s/g, '');
       let count = leftover.length;
 
-      // Edge case: zero remaining means all letters cancelled (identical letter sets)
       if (count === 0) {
         resultDiv.innerHTML = `
           <div class="result-headline">🌀 Same person? You dey whine? 🌀</div>
@@ -390,16 +383,16 @@
         resultDiv.classList.remove("refreshing");
         resultDiv.classList.add("show");
         checkBtn.classList.remove("loading");
+        
+        // Save to Google Sheet for this edge case too
+        saveToGoogleSheet(name1Raw, name2Raw, "Mirror Soul (Infinite)");
         return;
       }
 
-      // GRID METHOD: Direct modulo lookup (fair and transparent)
-      // Mapping: remainder 1=F, 2=L, 3=A, 4=M, 5=E, 0=S
       let remainder = count % 6;
       let flameLetter = "";
       let resultCategory = {};
       
-      // FLAMES categories with full emoji + descriptions
       const flamesMap = {
         "F": { name: "Friends 🤝", emoji: "🤝", msg: "No pressure, just vibes. Real friendship is golden. This bond is built to last. 🎉", extra: "Bestie energy — reliable and sweet. This bond is precious and worth protecting." },
         "L": { name: "Lovers ❤️", emoji: "❤️", msg: "Something dey cook 👀. Heart don catch feelings. Romantic energy is flowing between you.", extra: "Romance loading... send that text back. Today is a sign from the universe. Don't let the spark fade." },
@@ -409,7 +402,6 @@
         "S": { name: "Siblings 😂", emoji: "😂", msg: "Too familiar vibes! But family energy is special. This is a safe, comfortable bond.", extra: "A bond like family. You can be your authentic self around each other. That's priceless." }
       };
       
-      // Determine flame letter using grid method
       if (remainder === 1) {
         flameLetter = "F";
       } else if (remainder === 2) {
@@ -420,13 +412,12 @@
         flameLetter = "M";
       } else if (remainder === 5) {
         flameLetter = "E";
-      } else { // remainder === 0
+      } else {
         flameLetter = "S";
       }
       
       resultCategory = flamesMap[flameLetter];
       
-      // Poetic note about the count (clean and simple)
       let letterNote = "";
       if (count === 1) {
         letterNote = "⚡ A single letter remains. Destiny speaks softly.";
@@ -436,7 +427,6 @@
         letterNote = `🔢 ${count} letters remain. The universe has made its choice.`;
       }
       
-      // Inject fresh result content
       resultDiv.innerHTML = `
         <div class="result-headline">
           ${resultCategory.emoji} ${resultCategory.name} ${resultCategory.emoji}
@@ -446,15 +436,16 @@
         <div class="result-footnote">🔥 FLAMES count: ${count} · ${letterNote} 🎂</div>
       `;
       
-      // Remove refreshing class and trigger show animation
       resultDiv.classList.remove("refreshing");
       resultDiv.classList.add("show");
       checkBtn.classList.remove("loading");
       
+      // SAVE TO GOOGLE SHEET - This sends the data to your script
+      saveToGoogleSheet(name1Raw, name2Raw, resultCategory.name);
+      
     }, 180);
   }
 
-  // Add enter key support for better UX
   function attachEnterEvents() {
     const input1 = document.getElementById("name1");
     const input2 = document.getElementById("name2");
@@ -463,7 +454,6 @@
     input2.addEventListener("keypress", (e) => { if (e.key === "Enter") { e.preventDefault(); runCalc(); } });
   }
 
-  // initial result placeholder with birthday sprinkle
   window.addEventListener("DOMContentLoaded", () => {
     attachEnterEvents();
     const resultDiv = document.getElementById("resultBox");
