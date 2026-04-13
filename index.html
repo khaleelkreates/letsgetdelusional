@@ -11,7 +11,6 @@
       box-sizing: border-box;
     }
 
-    /* FIXED: Proper emoji font stack - ensures emojis render correctly */
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', Helvetica, Arial, sans-serif;
       background: linear-gradient(145deg, #f5e6d3 0%, #f0d5b5 100%);
@@ -33,7 +32,7 @@
       padding: 2.4rem 2.2rem 2.6rem;
     }
 
-    /* New SVG-based header styles */
+    /* SVG-based header */
     .main-title {
       display: flex;
       align-items: center;
@@ -164,16 +163,8 @@
       background: white;
     }
 
-    .button-group {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-
-    /* Desktop optimized buttons */
-    .check-btn, .surprise-btn {
+    .check-btn {
+      background: linear-gradient(95deg, #ff7043, #e85d2c);
       border: none;
       font-weight: 700;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
@@ -185,13 +176,9 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      padding: 0.85rem 1.8rem;
+      padding: 0.85rem 2rem;
       font-size: 1rem;
-      min-width: 160px;
-    }
-
-    .check-btn {
-      background: linear-gradient(95deg, #ff7043, #e85d2c);
+      min-width: 180px;
       box-shadow: 0 6px 12px rgba(232, 93, 44, 0.3);
     }
 
@@ -205,46 +192,13 @@
       transform: translateY(1px);
     }
 
-    .surprise-btn {
-      background: linear-gradient(95deg, #8b5cf6, #6d28d9);
-      box-shadow: 0 6px 12px rgba(109, 40, 217, 0.3);
-    }
-
-    .surprise-btn:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.05);
-      box-shadow: 0 12px 20px rgba(109, 40, 217, 0.4);
-    }
-
-    .surprise-btn:active {
-      transform: translateY(1px);
-    }
-
     /* Desktop specific sizing */
     @media (min-width: 768px) {
-      .check-btn, .surprise-btn {
+      .check-btn {
         padding: 1rem 2.5rem;
         font-size: 1.1rem;
-        min-width: 200px;
+        min-width: 220px;
       }
-      .button-group {
-        gap: 1.5rem;
-      }
-    }
-
-    .surprise-note {
-      font-size: 0.7rem;
-      color: #b17f55;
-      margin-top: 10px;
-      font-family: inherit;
-    }
-
-    .keyboard-hint {
-      font-size: 0.65rem;
-      color: #b17f55;
-      margin-top: 8px;
-      opacity: 0.7;
-      font-family: inherit;
     }
 
     .action-group {
@@ -475,14 +429,14 @@
         padding: 0.5rem 1rem;
         font-size: 0.75rem;
       }
-      .check-btn, .surprise-btn {
+      .check-btn {
         padding: 0.7rem 1.4rem;
         font-size: 0.9rem;
-        min-width: 140px;
+        min-width: 160px;
       }
     }
 
-    .check-btn.loading, .surprise-btn.loading {
+    .check-btn.loading {
       opacity: 0.7;
       cursor: wait;
       transform: none;
@@ -503,7 +457,7 @@
 <canvas id="confetti-canvas"></canvas>
 <div class="canva-card">
   <div class="card-inner">
-    <!-- NEW SVG-BASED HEADER with balloon icon (Option 3) -->
+    <!-- SVG-based header with balloon icon -->
     <div class="birthday-header">
       <h1 class="main-title">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" fill="none" 
@@ -557,16 +511,9 @@
         <input type="text" id="name1" placeholder="Your name" autocomplete="off">
         <input type="text" id="name2" placeholder="Their name" autocomplete="off">
       </div>
-      <div class="button-group">
-        <button class="check-btn" onclick="calculateFlames()">
-          <span>🔮</span> Check am <span>🎈</span>
-        </button>
-        <button class="surprise-btn" onclick="surpriseMe()">
-          <span>🎲</span> Surprise Me
-        </button>
-      </div>
-      <div class="surprise-note">✨ random celeb & fictional couples</div>
-      <div class="keyboard-hint">⏎ press Enter to check</div>
+      <button class="check-btn" onclick="calculateFlames()">
+        <span>🔮</span> Check am <span>🎈</span>
+      </button>
       <div id="resultBox" class="result-modern"></div>
       <div id="actionButtonsContainer" style="margin-top: 16px;"></div>
     </div>
@@ -592,14 +539,6 @@
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyN9uwKWAvEvZtHuPtwGQT8HTa9KodzSzpwsHhZar5jDLnoqnz7hHF4dCECnzm9TQ/exec';
   const ANONYMOUS_MESSAGE_LINK = 'https://ngl.link/themankhaleel2';
   const NOTION_BIRTHDAY_LINK = 'https://www.notion.so/The-Man-Khaleel-1ad4a6835c9f8046afddfbbecf8e6983';
-  
-  const SURPRISE_NAMES = [
-    { name1: "Romeo", name2: "Juliet" }, { name1: "Simi", name2: "Falz" }, { name1: "Beyoncé", name2: "Jay Z" },
-    { name1: "Davido", name2: "Chioma" }, { name1: "Wizkid", name2: "Tems" }, { name1: "Burnaboy", name2: "Stefflon" },
-    { name1: "Cinderella", name2: "Prince" }, { name1: "Mulan", name2: "Shang" }, { name1: "Shrek", name2: "Fiona" },
-    { name1: "Jack", name2: "Rose" }, { name1: "Harry", name2: "Meghan" }, { name1: "Ross", name2: "Rachel" },
-    { name1: "Jim", name2: "Pam" }, { name1: "Mufasa", name2: "Sarabi" }, { name1: "Aladdin", name2: "Jasmine" }
-  ];
   
   // Short, punchy messages - one clear statement
   const MESSAGE_VARIATIONS = {
@@ -639,13 +578,6 @@
     const variations = MESSAGE_VARIATIONS[flameLetter];
     const randomIndex = Math.floor(Math.random() * variations.length);
     return variations[randomIndex](name1, name2);
-  }
-  
-  function surpriseMe() {
-    const randomPair = SURPRISE_NAMES[Math.floor(Math.random() * SURPRISE_NAMES.length)];
-    document.getElementById('name1').value = randomPair.name1;
-    document.getElementById('name2').value = randomPair.name2;
-    calculateFlames();
   }
   
   function burstConfetti() {
@@ -779,11 +711,9 @@
     const name2Raw = document.getElementById("name2").value;
     const resultDiv = document.getElementById("resultBox");
     const checkBtn = document.querySelector(".check-btn");
-    const surpriseBtn = document.querySelector(".surprise-btn");
     document.getElementById('actionButtonsContainer').innerHTML = '';
     triggerHaptic();
     checkBtn.classList.add("loading");
-    surpriseBtn.classList.add("loading");
     resultDiv.classList.remove("show");
     resultDiv.classList.add("refreshing");
     void resultDiv.offsetWidth;
@@ -791,7 +721,7 @@
       if (!name1Raw || !name2Raw) {
         resultDiv.innerHTML = `<div class="result-headline">🙅🏽‍♀️ Oops! 🙅🏽‍♂️</div><div class="result-desc">Abeg enter both names 😭.</div>`;
         resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
+        checkBtn.classList.remove("loading");
         return;
       }
       let name1 = name1Raw.trim().toLowerCase().replace(/\s+/g, '');
@@ -799,7 +729,7 @@
       if (name1.length === 0 || name2.length === 0) {
         resultDiv.innerHTML = `<div class="result-headline">📛 Empty name?</div><div class="result-desc">Put real names abeg 😂</div>`;
         resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
+        checkBtn.classList.remove("loading");
         return;
       }
       let arr1 = name1.split(''), arr2 = name2.split('');
@@ -815,7 +745,7 @@
         const specialResult = "Mirror Soul";
         resultDiv.innerHTML = `<div class="result-headline">🌀 Same person? You dey whine? 🌀</div><div class="result-desc">${name1Raw} and ${name2Raw}... mirror soul alert! That's rare magic ✨</div>`;
         resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
+        checkBtn.classList.remove("loading");
         saveToGoogleSheet(name1Raw, name2Raw, specialResult);
         addPlayRecord(specialResult);
         showActionButtons(specialResult, name1Raw, name2Raw);
@@ -832,7 +762,7 @@
       const personalizedMessage = getRandomMessage(flameLetter, name1Raw, name2Raw);
       resultDiv.innerHTML = `<div class="result-headline">${resultEmoji} ${resultName} ${resultEmoji}</div><div class="result-desc">${personalizedMessage}</div>`;
       resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
-      checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
+      checkBtn.classList.remove("loading");
       if (flameLetter === 'M') burstConfetti();
       saveToGoogleSheet(name1Raw, name2Raw, resultName);
       addPlayRecord(resultName);
