@@ -178,14 +178,12 @@
       flex-wrap: wrap;
     }
 
-    .share-btn {
-      background: linear-gradient(95deg, #1da1f2, #0d8bd9);
+    .action-btn {
       border: none;
       padding: 0.6rem 1.2rem;
       font-size: 0.85rem;
       font-weight: 600;
       font-family: 'Inter', sans-serif;
-      color: white;
       border-radius: 60px;
       cursor: pointer;
       transition: all 0.2s;
@@ -193,9 +191,35 @@
       align-items: center;
       gap: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-decoration: none;
+    }
+
+    .share-btn {
+      background: linear-gradient(95deg, #1da1f2, #0d8bd9);
+      color: white;
     }
 
     .share-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .message-btn {
+      background: linear-gradient(95deg, #10b981, #059669);
+      color: white;
+    }
+
+    .message-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+
+    .notion-btn {
+      background: linear-gradient(95deg, #8b5cf6, #7c3aed);
+      color: white;
+    }
+
+    .notion-btn:hover {
       transform: translateY(-2px);
       filter: brightness(1.05);
     }
@@ -353,6 +377,10 @@
         width: 75px;
         font-size: 0.7rem;
       }
+      .action-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+      }
     }
 
     .check-btn.loading {
@@ -382,7 +410,7 @@
       <p>The world is loud. But sometimes peace is just sitting beside someone without even pressing your phone. Just being there.</p>
       <p>Like that afternoon back in March. She was talking about work, one aunty was stressing her life, and I was there forming serious adviser. But truthfully, I was just watching her face. The way she says "see ehn" before she makes a strong point.</p>
       <p>At some point she asked why I was smiling. I told her, "Nothing. I just like you."</p>
-      <p>She rolled her eyes, but that small shy smile still came out. You know that one they try to hide but yoou can still see it? Yeah, that one.</p>
+      <p>She rolled her eyes, but that small shy smile still came out. You know that one they try to hide but you can still see it? Yeah, that one.</p>
       <p>And somehow, that moment just stayed with me.</p>
       <p>Then last week, she sent me a voice note at 2 AM. She couldn't sleep, was thinking about life, and just wanted to hear a familiar voice. I didn't sleep again that night. I just listened to her breathe between sentences. The way she sighs when she's tired. The way she says "goodnight" like it's a secret between us.</p>
       <p>I realized something. Love isn't always grand gestures. Sometimes it's being the safe place someone returns to when the world is too loud. 💫</p>
@@ -413,7 +441,7 @@
         <span>🔮</span> Check am <span>🎈</span>
       </button>
       <div id="resultBox" class="result-modern"></div>
-      <div id="shareButtonContainer" style="margin-top: 12px;"></div>
+      <div id="actionButtonsContainer" style="margin-top: 16px;"></div>
     </div>
 
     <!-- Analytics Panel: Daily Trends + Chart -->
@@ -438,6 +466,10 @@
 <script>
   // ---------- CONFIGURATION ----------
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyN9uwKWAvEvZtHuPtwGQT8HTa9KodzSzpwsHhZar5jDLnoqnz7hHF4dCECnzm9TQ/exec';
+  
+  // ---------- CUSTOM LINKS (UPDATED WITH YOUR ACTUAL LINKS) ----------
+  const ANONYMOUS_MESSAGE_LINK = 'https://ngl.link/themankhaleel2';
+  const NOTION_BIRTHDAY_LINK = 'https://www.notion.so/The-Man-Khaleel-1ad4a6835c9f8046afddfbbecf8e6983';
   
   // ---------- GLOBAL STORAGE (localStorage for analytics) ----------
   let playHistory = []; // { dateStr, resultKey, fullName }
@@ -544,35 +576,54 @@
     container.innerHTML = html;
   }
 
-  function showShareButton(resultName, nameA, nameB) {
-    const container = document.getElementById('shareButtonContainer');
+  // Show all three action buttons: Share (WhatsApp), Anonymous Message, Notion Link
+  function showActionButtons(resultName, nameA, nameB) {
+    const container = document.getElementById('actionButtonsContainer');
     if (!container) return;
+    
+    // Create share text for WhatsApp
+    const shareText = `🎂 FLAMES oracle says: ${nameA} + ${nameB} = ${resultName} 🔥\nCheck your own destiny at ${window.location.href}`;
+    
     container.innerHTML = `
-      <button class="share-btn" id="dynamicShareBtn">
-        <span>📱</span> Share result
-      </button>
+      <div class="action-group">
+        <button class="action-btn share-btn" id="shareBtn">
+          <span>📱</span> Share to WhatsApp
+        </button>
+        <button class="action-btn message-btn" id="messageBtn">
+          <span>💬</span> Speak with Khaleel
+        </button>
+        <button class="action-btn notion-btn" id="notionBtn">
+          <span>📓</span> Last Year's Reflections
+        </button>
+      </div>
     `;
-    const btn = document.getElementById('dynamicShareBtn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const text = `🎂 FLAMES oracle says: ${nameA} + ${nameB} = ${resultName} 🔥\nCheck your own destiny at ${window.location.href}`;
-        if (navigator.share) {
-          navigator.share({ title: 'Are We Safe?', text: text }).catch(() => fallbackCopy(text));
-        } else {
-          fallbackCopy(text);
-        }
+    
+    // Share button - WhatsApp direct
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+        window.open(whatsappUrl, '_blank');
+      });
+    }
+    
+    // Anonymous message button (ngl link)
+    const messageBtn = document.getElementById('messageBtn');
+    if (messageBtn) {
+      messageBtn.addEventListener('click', () => {
+        window.open(ANONYMOUS_MESSAGE_LINK, '_blank');
+      });
+    }
+    
+    // Notion birthday reflections button
+    const notionBtn = document.getElementById('notionBtn');
+    if (notionBtn) {
+      notionBtn.addEventListener('click', () => {
+        window.open(NOTION_BIRTHDAY_LINK, '_blank');
       });
     }
   }
   
-  function fallbackCopy(text) {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('✨ Result copied! Share with your friends. ✨');
-    }).catch(() => {
-      prompt('Press Ctrl+C to copy:', text);
-    });
-  }
-
   // Google Sheet logging (existing doGet)
   function saveToGoogleSheet(name1, name2, result) {
     const url = `${GOOGLE_SCRIPT_URL}?name1=${encodeURIComponent(name1)}&name2=${encodeURIComponent(name2)}&result=${encodeURIComponent(result)}`;
@@ -586,7 +637,7 @@
     const name2Raw = document.getElementById("name2").value;
     const resultDiv = document.getElementById("resultBox");
     const checkBtn = document.querySelector(".check-btn");
-    document.getElementById('shareButtonContainer').innerHTML = '';
+    document.getElementById('actionButtonsContainer').innerHTML = '';
 
     checkBtn.classList.add("loading");
     resultDiv.classList.remove("show");
@@ -635,7 +686,7 @@
         addPlayRecord(specialResult);
         currentResultForShare = specialResult;
         currentNamesForShare = { name1: name1Raw, name2: name2Raw };
-        showShareButton(specialResult, name1Raw, name2Raw);
+        showActionButtons(specialResult, name1Raw, name2Raw);
         return;
       }
       
@@ -673,7 +724,7 @@
       addPlayRecord(resultCategory.name);
       currentResultForShare = resultCategory.name;
       currentNamesForShare = { name1: name1Raw, name2: name2Raw };
-      showShareButton(resultCategory.name, name1Raw, name2Raw);
+      showActionButtons(resultCategory.name, name1Raw, name2Raw);
     }, 150);
   }
 
