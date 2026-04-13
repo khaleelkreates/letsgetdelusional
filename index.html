@@ -778,4 +778,51 @@
       else if (remainder === 3) flameLetter = "A";
       else if (remainder === 4) flameLetter = "M";
       else if (remainder === 5) flameLetter = "E";
-      else flame
+      else flameLetter = "S";
+      
+      const resultCategory = flamesMap[flameLetter];
+      const personalizedMessage = resultCategory.personalizedMsg(name1Raw, name2Raw);
+      const letterNote = count <= 6 ? `✨ ${count} letters remain.` : `🔢 ${count} letters remain.`;
+      
+      resultDiv.innerHTML = `
+        <div class="result-headline">${resultCategory.emoji} ${resultCategory.name} ${resultCategory.emoji}</div>
+        <div class="result-desc">${personalizedMessage}</div>
+        <div class="result-footnote">🔥 FLAMES count: ${count} · ${letterNote} 🎂</div>
+      `;
+      resultDiv.classList.remove("refreshing");
+      resultDiv.classList.add("show");
+      checkBtn.classList.remove("loading");
+      
+      saveToGoogleSheet(name1Raw, name2Raw, resultCategory.name);
+      addPlayRecord(resultCategory.name);
+      currentResultForShare = resultCategory.name;
+      currentNamesForShare = { name1: name1Raw, name2: name2Raw };
+      showActionButtons(resultCategory.name, name1Raw, name2Raw);
+    }, 150);
+  }
+
+  function attachEnterEvents() {
+    const input1 = document.getElementById("name1");
+    const input2 = document.getElementById("name2");
+    const runCalc = () => calculateFlames();
+    input1.addEventListener("keypress", (e) => { if (e.key === "Enter") { e.preventDefault(); runCalc(); } });
+    input2.addEventListener("keypress", (e) => { if (e.key === "Enter") { e.preventDefault(); runCalc(); } });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    attachEnterEvents();
+    loadHistory();
+    const resultDiv = document.getElementById("resultBox");
+    resultDiv.classList.remove("show", "refreshing");
+    resultDiv.innerHTML = `<div class="result-headline">🎈 Ready? 🎈</div><div class="result-desc">Type two names, click "Check am", and let the magic begin 😂</div><div class="result-footnote">✨ fair & transparent · GRID method ✨</div>`;
+    resultDiv.style.opacity = "0.85";
+    setTimeout(() => {
+      if (!resultDiv.classList.contains("show")) {
+        resultDiv.style.opacity = "1";
+        resultDiv.classList.add("show");
+      }
+    }, 100);
+  });
+</script>
+</body>
+</html>
