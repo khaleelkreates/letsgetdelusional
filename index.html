@@ -11,7 +11,6 @@
       box-sizing: border-box;
     }
 
-    /* OPTION D: Punchier, richer colors — warm but vibrant */
     body {
       background: linear-gradient(145deg, #f5e6d3 0%, #f0d5b5 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
@@ -373,15 +372,7 @@
       color: #4d3e30;
       margin-top: 8px;
       font-weight: 500;
-    }
-
-    .result-footnote {
-      font-size: 0.7rem;
-      margin-top: 12px;
-      color: #bb8b63;
-      border-top: 1px dashed #f5e2cf;
-      padding-top: 8px;
-      display: inline-block;
+      line-height: 1.4;
     }
 
     .footer-credit {
@@ -514,68 +505,54 @@
 
     <div class="footer-credit">
       <span>🎂 Made with vibes, small delusion & birthday energy</span>
-      <span>🔥 GRID method · fair & transparent</span>
     </div>
   </div>
 </div>
 
 <script>
-  // ---------- CONFIGURATION ----------
   const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyN9uwKWAvEvZtHuPtwGQT8HTa9KodzSzpwsHhZar5jDLnoqnz7hHF4dCECnzm9TQ/exec';
-  
   const ANONYMOUS_MESSAGE_LINK = 'https://ngl.link/themankhaleel2';
   const NOTION_BIRTHDAY_LINK = 'https://www.notion.so/The-Man-Khaleel-1ad4a6835c9f8046afddfbbecf8e6983';
   
-  // ---------- SURPRISE ME NAME BANK ----------
   const SURPRISE_NAMES = [
-    { name1: "Romeo", name2: "Juliet" },
-    { name1: "Simi", name2: "Falz" },
-    { name1: "Beyoncé", name2: "Jay Z" },
-    { name1: "Davido", name2: "Chioma" },
-    { name1: "Wizkid", name2: "Tems" },
-    { name1: "Burnaboy", name2: "Stefflon" },
-    { name1: "Cinderella", name2: "Prince" },
-    { name1: "Mulan", name2: "Shang" },
-    { name1: "Shrek", name2: "Fiona" },
-    { name1: "Jack", name2: "Rose" },
-    { name1: "Harry", name2: "Meghan" },
-    { name1: "Ross", name2: "Rachel" },
-    { name1: "Jim", name2: "Pam" },
-    { name1: "Mufasa", name2: "Sarabi" },
-    { name1: "Aladdin", name2: "Jasmine" }
+    { name1: "Romeo", name2: "Juliet" }, { name1: "Simi", name2: "Falz" }, { name1: "Beyoncé", name2: "Jay Z" },
+    { name1: "Davido", name2: "Chioma" }, { name1: "Wizkid", name2: "Tems" }, { name1: "Burnaboy", name2: "Stefflon" },
+    { name1: "Cinderella", name2: "Prince" }, { name1: "Mulan", name2: "Shang" }, { name1: "Shrek", name2: "Fiona" },
+    { name1: "Jack", name2: "Rose" }, { name1: "Harry", name2: "Meghan" }, { name1: "Ross", name2: "Rachel" },
+    { name1: "Jim", name2: "Pam" }, { name1: "Mufasa", name2: "Sarabi" }, { name1: "Aladdin", name2: "Jasmine" }
   ];
   
-  // ---------- MESSAGE VARIATIONS (3 per FLAMES letter, no em dashes) ----------
+  // Short, punchy messages - one clear statement, no clutter
   const MESSAGE_VARIATIONS = {
     "F": [
-      (n1, n2) => `${n1} and ${n2} have that easy friendship vibe. No pressure, just real connection. 🎉`,
-      (n1, n2) => `${n1} and ${n2} feel like home to each other. This is the kind of bond that lasts. 🤝`,
+      (n1, n2) => `${n1} and ${n2}? Solid friendship energy. No drama, just realness. 🤝`,
+      (n1, n2) => `${n1} and ${n2} feel like home to each other. That's rare. 🎉`,
       (n1, n2) => `${n1} and ${n2} just get each other. Bestie energy, pure and simple. ✨`
     ],
     "L": [
-      (n1, n2) => `${n1} and ${n2}... something is definitely cooking there. Hearts are catching feelings. ❤️`,
-      (n1, n2) => `${n1} and ${n2} have that spark. You know the one. The chemistry is real. 🔥`,
+      (n1, n2) => `${n1} and ${n2}... something dey cook here. 👀❤️`,
+      (n1, n2) => `${n1} and ${n2} have that spark. No denying it. 🔥`,
       (n1, n2) => `${n1} and ${n2} make each other smile for no reason. That's the good stuff. 💕`
     ],
     "A": [
-      (n1, n2) => `${n1} and ${n2} share a soft spot. It's gentle, it's warm, it's something beautiful. 😊`,
-      (n1, n2) => `${n1} and ${n2} care deeply about each other. That quiet affection is rare. 💖`,
+      (n1, n2) => `${n1} and ${n2} share something soft and warm. That's rare. 😊`,
+      (n1, n2) => `${n1} and ${n2} care deeply. Quiet affection hits different. 💖`,
       (n1, n2) => `${n1} and ${n2} have that comfortable warmth. Like a hug you didn't know you needed. 🌸`
     ],
     "M": [
-      (n1, n2) => `${n1} and ${n2} are playing the long game. This could really go all the way. 💍`,
-      (n1, n2) => `${n1} and ${n2} have serious potential. Wedding bells might not be a joke after all. 🥂`,
-      (n1, n2) => `${n1} and ${n2} are building something solid. Start saving for that introduction o! 😂`
+      (n1, n2) => `${n1} and ${n2} are playing the long game. 💍`,
+      (n1, n2) => `${n1} and ${n2}? Start saving for that introduction o! 😂`,
+      (n1, n2) => `${n1} and ${n2} are building something solid. Wedding bells loading. 🥂`
     ],
     "E": [
-      (n1, n2) => `${n1} and ${n2} need some space right now. Not forever, just for peace. 💀`,
-      (n1, n2) => `${n1} and ${n2} might be better off apart for now. Focus on your own growth. 🌱`,
-      (n1, n2) => `${n1} and ${n2} are in a tricky spot. Sometimes distance is the kindest thing. ✨`
+      (n1, n2) => `${n1} and ${n2} need space right now. Not forever, just for peace. 💀`,
+      (n1, n2) => `${n1} and ${n2} might be better apart for now. Focus on you. 🌱`,
+      (n1, n2) => `${n1} and ${n2} are in a tricky spot. Sometimes distance is kindness. ✨`
     ],
     "S": [
-      (n1, n2) => `${n1} and ${n2} feel like family. Too familiar for romance, but that's still beautiful. 😂`,
+      (n1, n2) => `${n1} and ${n2} feel like family. Too familiar for romance, but still beautiful. 😂`,
       (n1, n2) => `${n1} and ${n2} have that sibling energy. Safe, comfortable, real. 🏡`,
-      (n1, n2) => `${n1} and ${n2} are like chosen family. That bond is priceless in its own way. 💫`
+      (n1, n2) => `${n1} and ${n2} are like chosen family. That bond is priceless. 💫`
     ]
   };
   
@@ -585,7 +562,6 @@
     return variations[randomIndex](name1, name2);
   }
   
-  // ---------- SURPRISE ME FUNCTION ----------
   function surpriseMe() {
     const randomPair = SURPRISE_NAMES[Math.floor(Math.random() * SURPRISE_NAMES.length)];
     document.getElementById('name1').value = randomPair.name1;
@@ -593,7 +569,6 @@
     calculateFlames();
   }
   
-  // ---------- CONFETTI (marriage only) ----------
   function burstConfetti() {
     const canvas = document.getElementById('confetti-canvas');
     const myConfetti = new ConfettiGenerator({ target: canvas, max: 150, size: 1.2, animate: true, props: ['circle', 'square'], colors: [[255, 112, 67], [244, 162, 97], [231, 111, 81], [245, 158, 11], [255, 215, 0]] });
@@ -601,30 +576,24 @@
     setTimeout(() => { myConfetti.clear(); }, 3000);
   }
   
-  // ---------- HAPTIC FEEDBACK (mobile only) ----------
   function triggerHaptic() {
     if ('vibrate' in navigator && window.innerWidth <= 768) {
       navigator.vibrate(50);
     }
   }
   
-  // ---------- STORAGE & UI ----------
   let playHistory = [];
 
   function loadHistory() {
     const stored = localStorage.getItem('flames_analytics_v2');
     if (stored) {
-      try {
-        playHistory = JSON.parse(stored);
-      } catch(e) { playHistory = []; }
+      try { playHistory = JSON.parse(stored); } catch(e) { playHistory = []; }
     }
     if (!playHistory.length) playHistory = [];
     updateAnalyticsUI();
   }
 
-  function saveHistory() {
-    localStorage.setItem('flames_analytics_v2', JSON.stringify(playHistory));
-  }
+  function saveHistory() { localStorage.setItem('flames_analytics_v2', JSON.stringify(playHistory)); }
 
   function addPlayRecord(resultFullName) {
     const todayStr = new Date().toISOString().split('T')[0];
@@ -636,13 +605,7 @@
     else if (resultFullName.includes('Enemies')) resultKey = 'Enemies';
     else if (resultFullName.includes('Siblings')) resultKey = 'Siblings';
     else resultKey = resultFullName;
-    
-    playHistory.push({
-      dateStr: todayStr,
-      resultKey: resultKey,
-      fullName: resultFullName,
-      timestamp: Date.now()
-    });
+    playHistory.push({ dateStr: todayStr, resultKey: resultKey, fullName: resultFullName, timestamp: Date.now() });
     saveHistory();
     updateAnalyticsUI();
   }
@@ -655,27 +618,18 @@
       document.getElementById('insightNote').innerHTML = '💡 Be the first to play and shape the vibes ✨';
       return;
     }
-    
     const total = playHistory.length;
     document.getElementById('totalPlaysBadge').innerHTML = `🎮 total plays: ${total}`;
-    
     const todayStr = new Date().toISOString().split('T')[0];
     const todayPlays = playHistory.filter(p => p.dateStr === todayStr);
-    let topResult = '';
-    let maxCount = 0;
-    
+    let topResult = '', maxCount = 0;
     if (todayPlays.length > 0) {
       const freq = {};
       todayPlays.forEach(p => { freq[p.resultKey] = (freq[p.resultKey] || 0) + 1; });
-      for (let [res, cnt] of Object.entries(freq)) {
-        if (cnt > maxCount) { maxCount = cnt; topResult = res; }
-      }
+      for (let [res, cnt] of Object.entries(freq)) { if (cnt > maxCount) { maxCount = cnt; topResult = res; } }
       const emojiMap = { Friends:'🤝', Lovers:'❤️', Affection:'😊', Marriage:'💍', Enemies:'💀', Siblings:'😂' };
       document.getElementById('dailyTrendText').innerHTML = `📊 Today's top: ${topResult} ${emojiMap[topResult] || ''}  (${maxCount} ${maxCount===1?'play':'plays'})`;
-    } else {
-      document.getElementById('dailyTrendText').innerHTML = `📊 No plays yet today. Be the first! ✨`;
-    }
-    
+    } else { document.getElementById('dailyTrendText').innerHTML = `📊 No plays yet today. Be the first! ✨`; }
     let insightText = '';
     if (topResult === 'Marriage') insightText = '💍 Love is winning today! Someone\'s planning introduction already 😂';
     else if (topResult === 'Lovers') insightText = '❤️ Romance is in the air! The universe is playing matchmaker today ✨';
@@ -685,15 +639,11 @@
     else if (topResult === 'Siblings') insightText = '😂 Family energy strong! Safe bonds and familiar comfort 🏡';
     else insightText = '✨ The FLAMES are still settling. Every click adds to the magic!';
     document.getElementById('insightNote').innerHTML = `💡 ${insightText}`;
-    
     const stats = { Friends:0, Lovers:0, Affection:0, Marriage:0, Enemies:0, Siblings:0 };
     playHistory.forEach(p => { if(stats[p.resultKey] !== undefined) stats[p.resultKey]++; });
     const totalAll = playHistory.length;
     const chartData = [];
-    for (let [key, count] of Object.entries(stats)) {
-      let percent = totalAll > 0 ? (count / totalAll * 100) : 0;
-      chartData.push({ key, count, percent });
-    }
+    for (let [key, count] of Object.entries(stats)) { let percent = totalAll > 0 ? (count / totalAll * 100) : 0; chartData.push({ key, count, percent }); }
     renderChart(chartData);
   }
 
@@ -705,15 +655,7 @@
     let html = `<div style="font-size:0.7rem; font-weight:600; margin-bottom:8px;">🔥 Community FLAMES breakdown</div>`;
     for (let item of sorted) {
       const widthPercent = item.percent.toFixed(1);
-      html += `
-        <div class="chart-bar">
-          <div class="bar-label">${emojiMap[item.key] || ''} ${item.key}</div>
-          <div style="flex:1; background:#f0e2d4; border-radius:20px; overflow:hidden;">
-            <div class="bar-fill" style="width: ${widthPercent}%;"></div>
-          </div>
-          <div class="bar-percent">${widthPercent}% (${item.count})</div>
-        </div>
-      `;
+      html += `<div class="chart-bar"><div class="bar-label">${emojiMap[item.key] || ''} ${item.key}</div><div style="flex:1; background:#f0e2d4; border-radius:20px; overflow:hidden;"><div class="bar-fill" style="width: ${widthPercent}%;"></div></div><div class="bar-percent">${widthPercent}% (${item.count})</div></div>`;
     }
     if (playHistory.length === 0) html += `<div style="text-align:center; padding:12px; color:#bb8b63;">✨ Play the game to see live trends ✨</div>`;
     container.innerHTML = html;
@@ -730,7 +672,7 @@
       document.getElementById('name1').value = '';
       document.getElementById('name2').value = '';
       document.getElementById('resultBox').classList.remove('show');
-      document.getElementById('resultBox').innerHTML = `<div class="result-headline">🎈 Ready? 🎈</div><div class="result-desc">Type two names and let the magic begin 😂</div><div class="result-footnote">✨ fair & transparent · GRID method ✨</div>`;
+      document.getElementById('resultBox').innerHTML = `<div class="result-headline">🎈 Ready? 🎈</div><div class="result-desc">Type two names and let the magic begin 😂</div>`;
       document.getElementById('resultBox').style.opacity = '0.85';
       document.getElementById('actionButtonsContainer').innerHTML = '';
       document.getElementById('name1').focus();
@@ -741,13 +683,7 @@
     const container = document.getElementById('actionButtonsContainer');
     if (!container) return;
     const shareText = `🔥 I just played the FLAMES game and got "${resultName}"! 🎂\n\nWant to know what FLAMES says about you and your person? Try it yourself and see if the arithmetic is on your side 😂\n\n👉 ${window.location.href}`;
-    container.innerHTML = `
-      <div class="action-group">
-        <button class="action-btn share-btn" id="shareBtn"><span>📱</span> Share to WhatsApp</button>
-        <button class="action-btn message-btn" id="messageBtn"><span>💬</span> Speak with Khaleel</button>
-        <button class="action-btn notion-btn" id="notionBtn"><span>📓</span> Last Year's Reflections</button>
-      </div>
-    `;
+    container.innerHTML = `<div class="action-group"><button class="action-btn share-btn" id="shareBtn"><span>📱</span> Share to WhatsApp</button><button class="action-btn message-btn" id="messageBtn"><span>💬</span> Speak with Khaleel</button><button class="action-btn notion-btn" id="notionBtn"><span>📓</span> Last Year's Reflections</button></div>`;
     document.getElementById('shareBtn')?.addEventListener('click', () => window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank'));
     document.getElementById('messageBtn')?.addEventListener('click', () => window.open(ANONYMOUS_MESSAGE_LINK, '_blank'));
     document.getElementById('notionBtn')?.addEventListener('click', () => window.open(NOTION_BIRTHDAY_LINK, '_blank'));
@@ -759,7 +695,6 @@
     fetch(url, { method: 'GET', mode: 'no-cors' }).catch(e => console.log("sheet log info", e));
   }
 
-  // FLAMES core logic with message variations
   function calculateFlames() {
     const name1Raw = document.getElementById("name1").value;
     const name2Raw = document.getElementById("name2").value;
@@ -768,87 +703,58 @@
     const surpriseBtn = document.querySelector(".surprise-btn");
     document.getElementById('actionButtonsContainer').innerHTML = '';
     triggerHaptic();
-
     checkBtn.classList.add("loading");
     surpriseBtn.classList.add("loading");
     resultDiv.classList.remove("show");
     resultDiv.classList.add("refreshing");
     void resultDiv.offsetWidth;
-    
     setTimeout(() => {
       if (!name1Raw || !name2Raw) {
-        resultDiv.innerHTML = `<div class="result-headline">🙅🏽‍♀️ Oops! 🙅🏽‍♂️</div><div class="result-desc">Abeg enter both names 😭.</div><div class="result-footnote">🎂 birthday rules: two names required</div>`;
-        resultDiv.classList.remove("refreshing");
-        resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading");
-        surpriseBtn.classList.remove("loading");
+        resultDiv.innerHTML = `<div class="result-headline">🙅🏽‍♀️ Oops! 🙅🏽‍♂️</div><div class="result-desc">Abeg enter both names 😭.</div>`;
+        resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
+        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
         return;
       }
       let name1 = name1Raw.trim().toLowerCase().replace(/\s+/g, '');
       let name2 = name2Raw.trim().toLowerCase().replace(/\s+/g, '');
       if (name1.length === 0 || name2.length === 0) {
         resultDiv.innerHTML = `<div class="result-headline">📛 Empty name?</div><div class="result-desc">Put real names abeg 😂</div>`;
-        resultDiv.classList.remove("refreshing");
-        resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading");
-        surpriseBtn.classList.remove("loading");
+        resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
+        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
         return;
       }
-      
-      let arr1 = name1.split('');
-      let arr2 = name2.split('');
+      let arr1 = name1.split(''), arr2 = name2.split('');
       for (let i = 0; i < arr1.length; i++) {
         const ch = arr1[i];
         if (ch === '') continue;
         const idxIn2 = arr2.indexOf(ch);
-        if (idxIn2 !== -1) {
-          arr1[i] = '';
-          arr2[idxIn2] = '';
-        }
+        if (idxIn2 !== -1) { arr1[i] = ''; arr2[idxIn2] = ''; }
       }
       const leftover = (arr1.join('') + arr2.join('')).replace(/\s/g, '');
       let count = leftover.length;
-      
       if (count === 0) {
         const specialResult = "Mirror Soul";
-        resultDiv.innerHTML = `<div class="result-headline">🌀 Same person? You dey whine? 🌀</div><div class="result-desc">${name1Raw} and ${name2Raw}... mirror soul alert! Every letter cancelled out. That's rare magic ✨</div>`;
-        resultDiv.classList.remove("refreshing");
-        resultDiv.classList.add("show");
-        checkBtn.classList.remove("loading");
-        surpriseBtn.classList.remove("loading");
+        resultDiv.innerHTML = `<div class="result-headline">🌀 Same person? You dey whine? 🌀</div><div class="result-desc">${name1Raw} and ${name2Raw}... mirror soul alert! That's rare magic ✨</div>`;
+        resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
+        checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
         saveToGoogleSheet(name1Raw, name2Raw, specialResult);
         addPlayRecord(specialResult);
         showActionButtons(specialResult, name1Raw, name2Raw);
         return;
       }
-      
       let remainder = count % 6;
-      let flameLetter = "";
-      let resultName = "";
-      let resultEmoji = "";
-      
+      let flameLetter = "", resultName = "", resultEmoji = "";
       if (remainder === 1) { flameLetter = "F"; resultName = "Friends 🤝"; resultEmoji = "🤝"; }
       else if (remainder === 2) { flameLetter = "L"; resultName = "Lovers ❤️"; resultEmoji = "❤️"; }
       else if (remainder === 3) { flameLetter = "A"; resultName = "Affection 😊"; resultEmoji = "😊"; }
       else if (remainder === 4) { flameLetter = "M"; resultName = "Marriage 💍"; resultEmoji = "💍"; }
       else if (remainder === 5) { flameLetter = "E"; resultName = "Enemies 💀"; resultEmoji = "💀"; }
       else { flameLetter = "S"; resultName = "Siblings 😂"; resultEmoji = "😂"; }
-      
       const personalizedMessage = getRandomMessage(flameLetter, name1Raw, name2Raw);
-      const letterNote = count <= 6 ? `✨ ${count} letters remain.` : `🔢 ${count} letters remain.`;
-      
-      resultDiv.innerHTML = `
-        <div class="result-headline">${resultEmoji} ${resultName} ${resultEmoji}</div>
-        <div class="result-desc">${personalizedMessage}</div>
-        <div class="result-footnote">🔥 FLAMES count: ${count} · ${letterNote} 🎂</div>
-      `;
-      resultDiv.classList.remove("refreshing");
-      resultDiv.classList.add("show");
-      checkBtn.classList.remove("loading");
-      surpriseBtn.classList.remove("loading");
-      
+      resultDiv.innerHTML = `<div class="result-headline">${resultEmoji} ${resultName} ${resultEmoji}</div><div class="result-desc">${personalizedMessage}</div>`;
+      resultDiv.classList.remove("refreshing"); resultDiv.classList.add("show");
+      checkBtn.classList.remove("loading"); surpriseBtn.classList.remove("loading");
       if (flameLetter === 'M') burstConfetti();
-      
       saveToGoogleSheet(name1Raw, name2Raw, resultName);
       addPlayRecord(resultName);
       showActionButtons(resultName, name1Raw, name2Raw);
@@ -863,7 +769,6 @@
     input2.addEventListener("keypress", (e) => { if (e.key === "Enter") { e.preventDefault(); runCalc(); } });
   }
 
-  // ConfettiGenerator library
   const ConfettiGenerator = function(params) {
     let canvas = params.target;
     let ctx = canvas.getContext('2d');
@@ -912,7 +817,7 @@
     loadHistory();
     const resultDiv = document.getElementById("resultBox");
     resultDiv.classList.remove("show", "refreshing");
-    resultDiv.innerHTML = `<div class="result-headline">🎈 Ready? 🎈</div><div class="result-desc">Type two names, click "Check am", and let the magic begin 😂</div><div class="result-footnote">✨ fair & transparent · GRID method ✨</div>`;
+    resultDiv.innerHTML = `<div class="result-headline">🎈 Ready? 🎈</div><div class="result-desc">Type two names and let the magic begin 😂</div>`;
     resultDiv.style.opacity = "0.85";
     setTimeout(() => {
       if (!resultDiv.classList.contains("show")) {
